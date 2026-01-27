@@ -1108,26 +1108,33 @@
             });
                      
             // Виділення поточного тижня
-            const today = new Date();
-            const currentDateStr = today.toLocaleDateString('uk-UA', {
-                day: '2-digit',
-                month: '2-digit',
-                year: '2-digit'
-            }).replace(/\./g, '.');
+const today = new Date();
+const weekCells = document.querySelectorAll('.weeks-table td');
+
+weekCells.forEach(cell => {
+    const cellText = cell.textContent.trim();
+    const dateRange = cellText.split(' - ');
+    
+    if (dateRange.length === 2) {
+        const parseDate = (dateStr) => {
+            const [day, month, year] = dateStr.split('.');
+            return new Date(2000 + parseInt(year), parseInt(month) - 1, parseInt(day));
+        };
+        
+        const startDate = parseDate(dateRange[0]);
+        const endDate = parseDate(dateRange[1]);
+        endDate.setDate(endDate.getDate() + 1); // Включаємо весь останній день
+        
+        if (today >= startDate && today < endDate) {
+            cell.classList.add('current-week');
             
-            const weekCells = document.querySelectorAll('.weeks-table td');
-            weekCells.forEach(cell => {
-                const cellText = cell.textContent;
-                if (cellText.includes(currentDateStr)) {
-                    cell.classList.add('current-week');
-                    
-                    // Додаємо мітку "Поточний тиждень"
-                    const label = document.createElement('div');
-                    label.textContent = 'Поточний';
-                    label.style.cssText = 'font-size:0.75rem;color:#2e7d32;font-weight:bold;margin-top:4px;';
-                    cell.appendChild(label);
-                }
-            });
+            const label = document.createElement('div');
+            label.textContent = 'Поточний';
+            label.style.cssText = 'font-size:0.75rem;color:#2e7d32;font-weight:bold;margin-top:4px;';
+            cell.appendChild(label);
+        }
+    }
+});
                   
             // Плавна прокрутка до секцій
             const sectionTitles = document.querySelectorAll('.section-title');
