@@ -532,14 +532,16 @@
         }
         
         .schedule-week-nad {
-            color: var(--primary-green);
+            /* color: var(--primary-green); */
+			color: #800080;
             font-weight: 600;
 			font-size: 0.65rem;
             font-style: italic;
         }
         
         .schedule-week-pid {
-            color: var(--light-green);
+            /* color: var(--light-green); */
+			color: #4682B4;
             font-weight: 600;
 			font-size: 0.65rem;
             font-style: italic;
@@ -1235,8 +1237,8 @@ weekCells.forEach(cell => {
             cell.classList.add('current-week');
             
             const label = document.createElement('div');
-            label.textContent = 'Поточний';
-            label.style.cssText = 'font-size:0.75rem;color:#2e7d32;font-weight:bold;margin-top:4px;';
+            label.textContent = 'Поточний тиждень';
+            label.style.cssText = 'font-size:0.75rem;color:#DC143C;font-weight:bold;margin-top:4px;';
             cell.appendChild(label);
         }
     }
